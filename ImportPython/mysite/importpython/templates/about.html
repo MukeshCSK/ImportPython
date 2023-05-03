@@ -1,0 +1,153 @@
+{% extends 'base.html' %} {% block content %}
+
+<title>About</title>
+
+<style>
+    body{
+        background-color: #191919;
+    }
+
+    .about_section{
+            width: 100%;
+            padding: 78px 0px;
+            background-color: #191919;
+        }
+        .about img{
+            height: auto;
+            width: 420px;    
+        }
+        .about-text{
+            width: 550px;
+        }
+        .main_about{
+            width: 1130px;
+            max-width: 95%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .about-text h1{
+            color: white;
+            font-size: 80px;
+            text-transform: capitalize;
+            margin-bottom: 20px;
+            margin-right: 181px;
+        }
+        .about-text h5{
+            color: white;
+            font-size: 25px;
+            text-transform: capitalize;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+        span{
+            color: #f9004d;            
+        }
+        .about-text p{
+            color: #fcfc;
+            letter-spacing: 1px;
+            line-height: 28px;
+            font-size: 18px;
+            margin-bottom: 45px;
+        }
+        button{
+            background: #f9004d;
+            color: white;
+            text-decoration: none;
+            border: 2px solid transparent;
+            font-weight: bold;
+            padding: 13px 30px;
+            border-radius: 30px;
+            transition: .4s;
+        }
+        button:hover{
+            background: transparent;
+            border: 2px solid #f9004d;
+            cursor: pointer;
+        }
+        @media (max-width: 1200px) {
+            .main_about {
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-text {
+                width: 100%;
+                text-align: center;
+                margin-top: 30px;
+            }
+            .about-text h1 {
+                font-size: 60px;
+                margin-right: 0px;
+            }
+            .about-text h5 {
+                font-size: 20px;
+            }
+            .about img {
+                width: 100%;
+                max-width: 400px;
+            }
+            .about-text p {
+                font-size: 16px;
+                margin-right: 250px;
+                margin-left: 250px;
+            }
+        }
+
+</style>
+
+<body>
+    <div class="about_section">
+    <div class="main_about">
+        <canvas
+        id="cobe"
+        style="width: 500px; height: 500px;"
+        width="1000"
+        height="1000"
+        ></canvas>
+        <div class="about-text">
+            <h1>About Us</h1>
+            <h5>Developer<span> & Designer</span></h5>
+            <p>Read This
+                A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="module">
+    import createGlobe from 'https://cdn.skypack.dev/cobe'
+
+    let phi = 0
+    let canvas = document.getElementById("cobe")
+
+    const globe = createGlobe(canvas, {
+    devicePixelRatio: 2,
+    width: 1000,
+    height: 1000,
+    phi: 0,
+    theta: 0,
+    dark: 1,
+    diffuse: 1.2,
+    scale: 1,
+    mapSamples: 16000,
+    mapBrightness: 6,
+    baseColor: [1, 1, 1],
+    markerColor: [1, 0, 0],
+    glowColor: [1, 1, 1],
+    offset: [0, 0],
+    markers: [
+
+    ],
+    onRender: (state) => {
+        // Called on every animation frame.
+        // `state` will be an empty object, return updated params.
+        state.phi = phi
+        phi += 0.01
+    },
+    })
+    </script>
+
+
+{% endblock content %}

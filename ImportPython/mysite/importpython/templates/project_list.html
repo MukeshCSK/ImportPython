@@ -1,0 +1,120 @@
+{% extends 'base.html' %} {% block content %}
+
+<title>Project</title>
+
+<style>
+    
+    .site-container{
+    margin: 2rem auto;
+    max-width: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+        .article-container{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(265px,1fr));
+            gap: 4rem;
+        }
+        .article-image{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .article-image img{
+            max-width: 100%;
+            height: 100%;
+            border-radius: 20px 20px 0 0;
+        }
+        .article-card{
+            background: white;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .article-card:hover{
+            box-shadow: 0 4px 20px 0 rgba(34,68,123,0.2);
+            cursor: pointer;
+        }
+        .article-content{
+            padding: 2rem;
+            
+        }
+        .article-content .card-category{
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            color: #6b82a7;
+            display: block;
+            text-decoration: none;
+        }
+        .article-content .article-content_para{
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            color: #6b82a7;
+            display: block;
+            text-decoration: none;
+        }
+        .article-content .card-title{
+            margin: 1rem 0;
+            color: #22447b;
+        }
+        .article-content .card-excerpt{
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #6b82a7;
+    margin: 0;
+    word-wrap: break-word;
+}
+        h2 {
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+}
+        @media screen and (min-width: 786px) {
+            .site-container{
+                max-width: 608px;
+            }
+        }
+        @media screen and (min-width: 1280px) {
+            .site-container{
+                max-width: 1500px;
+            }
+        }
+</style>
+
+
+<h2>PROJECTS</h2>
+<div class="site-container">
+  <div class="article-container">
+    {% for project in project_list|slice:":9" %}
+    <a href="{% url 'project_detail' slug=project.slug  %}" class="card-category" style="text-decoration: none; color: #6b82a7;">
+      <article class="article-card">
+          <div class="article-content" style="height: 325px;">
+              <h3 class="card-title">{{ project.project_title }}</h3>
+              <p class="article-content_para">
+                {% if project.project_type == 0 %}
+                <span style="color: green;">Easy</span>
+                {% elif project.project_type == 1 %}
+                <span style="color: orange;">Medium</span>
+                {% else %}
+                <span style="color: red;">Hard</span>
+                {% endif %}
+              </p>
+              <h6>{{ project.project_created_on|date:"F d, Y" }}</h6>
+              {% if project.project_summary|length > 120 %}
+              <p class="card-excerpt">{{ project.project_summary|safe|slice:":113" }}</p>
+              {% else %}
+              <p class="card-excerpt">{{ project.project_summary|safe }}</p>
+              {% endif %}
+          </div>
+      </article>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}
